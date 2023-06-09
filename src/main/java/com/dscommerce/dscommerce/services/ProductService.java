@@ -33,8 +33,8 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
-        Page<Product> result = repository.findAll(pageable);
+    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+        Page<Product> result = repository.searchByName(name, pageable);
         return result.map(x -> new ProductDTO(x));
     }
 
@@ -64,8 +64,7 @@ public class ProductService {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial");
         }
     }
