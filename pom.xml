@@ -52,7 +52,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>8.0.0.CR2</version>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -78,6 +78,38 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<configuration>
+					<excludes>
+						<exclude>com/dscommerce/dscommerce/DscommerceApplication.class</exclude>
+						<exclude>com/dscommerce/dscommerce/config/**</exclude>
+						<exclude>com/dscommerce/dscommerce/entities/**</exclude>
+						<exclude>com/dscommerce/dscommerce/dto/**</exclude>
+						<exclude>com/dscommerce/dscommerce/controllers/handlers/**</exclude>
+						<exclude>com/dscommerce/dscommerce/services/exceptions/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/jacoco-report</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

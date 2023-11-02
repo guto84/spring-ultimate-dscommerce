@@ -18,7 +18,6 @@ import com.dscommerce.dscommerce.entities.User;
 import com.dscommerce.dscommerce.projections.UserDetailsProjection;
 import com.dscommerce.dscommerce.repositories.UserRepository;
 
-
 @Service
 public class UserService implements UserDetailsService {
 
@@ -28,7 +27,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         }
         User user = new User();
